@@ -61,26 +61,20 @@
         <button onclick="openCleanRead()">Clean Read</button>
     </div>
 
-    <div id="status">Enter a URL above and click an action button.</div>
+    <div id="status">Paste your link above and click a button. It will open instantly in a new tab.</div>
 
     <script>
         function openArchive() {
             const url = document.getElementById('targetUrl').value.trim();
-            const status = document.getElementById('status');
-            if (!url) { status.textContent = "Please enter a valid URL first."; return; }
-            
-            status.textContent = "Opening Wayback Machine save utility...";
+            if (!url) { alert("Please enter a valid URL first."); return; }
             window.open(`https://web.archive.org/save/${url}`, '_blank');
         }
 
         function openCleanRead() {
             const url = document.getElementById('targetUrl').value.trim();
-            const status = document.getElementById('status');
-            if (!url) { status.textContent = "Please enter a valid URL first."; return; }
-
-            status.textContent = "Opening clean reader view...";
-            // Using Jina Reader gateway which renders server-side and bypasses client-side firewalls
-            window.open(`https://r.jina.ai/${url}`, '_blank');
+            if (!url) { alert("Please enter a valid URL first."); return; }
+            // Opens the clean reader view directly via archive/cache fallback which avoids live Cloudflare walls
+            window.open(`https://web.archive.org/web/${url}`, '_blank');
         }
     </script>
 </body>

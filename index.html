@@ -13,7 +13,7 @@
             background: #fafafa;
             color: #111;
         }
-        h2 { font-size: 1.2rem; margin-bottom: 16px; }
+        h2 { font-size: 1.2rem; margin-bottom: 16px; font-weight: 600; }
         input[type="url"] {
             width: 100%;
             padding: 14px;
@@ -27,6 +27,7 @@
         .actions {
             display: flex;
             gap: 12px;
+            margin-bottom: 20px;
         }
         button {
             flex: 1;
@@ -40,6 +41,14 @@
             cursor: pointer;
         }
         button:hover { background: #333; }
+        #status {
+            font-size: 0.9rem;
+            color: #555;
+            background: #fff;
+            padding: 14px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
     </style>
 </head>
 <body>
@@ -52,18 +61,25 @@
         <button onclick="openCleanRead()">Clean Read</button>
     </div>
 
+    <div id="status">Enter a URL above and click an action button.</div>
+
     <script>
         function openArchive() {
             const url = document.getElementById('targetUrl').value.trim();
-            if (!url) { alert("Please enter a valid URL first."); return; }
-            // Triggers Wayback Machine save directly
+            const status = document.getElementById('status');
+            if (!url) { status.textContent = "Please enter a valid URL first."; return; }
+            
+            status.textContent = "Opening Wayback Machine save utility...";
             window.open(`https://web.archive.org/save/${url}`, '_blank');
         }
 
         function openCleanRead() {
             const url = document.getElementById('targetUrl').value.trim();
-            if (!url) { alert("Please enter a valid URL first."); return; }
-            // Routes through an instant text/reader extractor gateway
+            const status = document.getElementById('status');
+            if (!url) { status.textContent = "Please enter a valid URL first."; return; }
+
+            status.textContent = "Opening clean reader view...";
+            // Using Jina Reader gateway which renders server-side and bypasses client-side firewalls
             window.open(`https://r.jina.ai/${url}`, '_blank');
         }
     </script>
